@@ -30,7 +30,7 @@
 
 <div class="min-h-screen pt-32 pb-20 px-6">
 	<div class="max-w-7xl mx-auto">
-		<div class="text-center mb-16 animate-fade-in-up">
+		<div class="text-center mb-16 ">
 			<h1 class="text-4xl md:text-6xl font-display text-white mb-6">
 				Build the Future: <span class="text-yellow-400">Join Our Camps</span>
 			</h1>
@@ -40,8 +40,8 @@
 		</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-			{#each camps as camp, i}
-				<div class="animate-fade-in-up" style="animation-delay: {(i + 1) * 150}ms">
+			{#each camps as camp (camp.slug)}
+				<div>
 					<GlassPanel class="h-full p-8 flex flex-col hover:scale-[1.02] transition-all duration-300">
 						<div class="flex justify-between items-start mb-6">
 							<Badge class="bg-yellow-400 text-black border-0">{camp.category}</Badge>
