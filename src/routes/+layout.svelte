@@ -12,16 +12,20 @@
     let isAuthorized = $state(false);
 
     if (browser) {
-        // 2. Check if the URL has ?key=... OR if they unlocked it before
+        // 1. Automatically authorize if we are on localhost
+        const isLocal = window.location.hostname === 'localhost';
+        
         const params = new URLSearchParams(window.location.search);
         const hasKey = params.get('key') === ACCESS_KEY;
         const previouslyUnlocked = localStorage.getItem('unlocked') === 'true';
 
-        if (hasKey || previouslyUnlocked) {
+        // Add 'isLocal' to the check
+        if (isLocal || hasKey || previouslyUnlocked) {
             isAuthorized = true;
             localStorage.setItem('unlocked', 'true');
         }
     }
+    
 </script>
 
 <svelte:head>

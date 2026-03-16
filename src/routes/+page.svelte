@@ -3,7 +3,7 @@
 	import RoboticsSection from '$lib/components/RoboticsSection.svelte';
 	import CompetitionSection from '$lib/components/CompetitionSection.svelte';
 	import AchievementsSection from '$lib/components/AchievementsSection.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+	
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import GlassPanel from '$lib/components/GlassPanel.svelte';
-	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card';
-	import { Badge } from '$lib/components/ui/badge';
+	
 	import { Trophy, Users, Target, Zap } from '@lucide/svelte';
 </script>
 

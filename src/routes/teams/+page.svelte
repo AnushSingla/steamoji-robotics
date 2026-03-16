@@ -8,20 +8,37 @@
 	import {
 		Trophy,
 		Users,
-		Calendar,
+		
 		Award,
 		Target,
 		ArrowRight,
-		Zap,
+		
 		Code,
 		Wrench
 	} from '@lucide/svelte';
 	import { invalidate } from '$app/navigation';
 
+	interface Team {
+		id: string;
+		name: string;
+		type: 'V5' | 'IQ';
+		location: string;
+		color?: string;
+		description?: string;
+		robot?: { name: string };
+		members?: Array<{ name: string; grade: string }>;
+		achievements?: string[];
+	}
+
+	interface Event {
+		name: string;
+		start: string;
+	}
+
 	interface Props {
 		data: {
-			teams: Promise<{ teams: any[] }>;
-			events: Promise<{ events: any[] }>;
+			teams: Promise<{ teams: Team[] }>;
+			events: Promise<{ events: Event[] }>;
 		};
 	}
 
@@ -31,9 +48,7 @@
 		invalidate('/api/teams');
 	};
 
-	const retryLoadEvents = () => {
-		invalidate('/api/events');
-	};
+	
 </script>
 
 <svelte:head>
@@ -61,10 +76,10 @@
 						<LoadingSpinner size="sm" text="Loading stats..." />
 					{:then teamsData}
 						{#if teamsData?.teams}
-							{@const v5Teams = teamsData.teams.filter((team: any) => team.type === 'V5')}
-							{@const iqTeams = teamsData.teams.filter((team: any) => team.type === 'IQ')}
-							{@const totalMembers = v5Teams.reduce((total: number, team: any) => total + (team.members?.length || 0), 0)}
-							{@const totalAwards = teamsData.teams.reduce((total: number, team: any) => total + (team.achievements?.length || 0), 0)}
+							{@const v5Teams = teamsData.teams.filter((team: Team) => team.type === 'V5')}
+							{@const iqTeams = teamsData.teams.filter((team: Team) => team.type === 'IQ')}
+							{@const totalMembers = v5Teams.reduce((total: number, team: Team) => total + (team.members?.length || 0), 0)}
+							{@const totalAwards = teamsData.teams.reduce((total: number, team: Team) => total + (team.achievements?.length || 0), 0)}
 							<Badge variant="secondary" class="bg-yellow-500/20 text-yellow-400">{v5Teams.length} V5 Teams</Badge>
 							<Badge variant="secondary" class="bg-purple-500/20 text-purple-400">{iqTeams.length} IQ Teams</Badge>
 							<Badge variant="secondary" class="bg-red-500/20 text-red-400">{totalMembers} Team Members</Badge>
@@ -72,7 +87,7 @@
 						{:else}
 							<Badge variant="secondary" class="bg-red-500/20 text-red-400">No teams data</Badge>
 						{/if}
-					{:catch error}
+					{:catch}
 						<Badge variant="secondary" class="bg-red-500/20 text-red-400">Failed to load data</Badge>
 					{/await}
 				</div>
@@ -102,13 +117,13 @@
 						{#await data.events}
 							<LoadingSpinner size="sm" text="Loading..." />
 						{:then eventsData}
-							{@const nextEvent = eventsData?.events?.filter((event: any) => new Date(event.start) >= new Date())?.sort((a: any, b: any) => new Date(a.start).getTime() - new Date(b.start).getTime())[0]}
+							{@const nextEvent = eventsData?.events?.filter((event: Event) => new Date(event.start) >= new Date())?.sort((a: Event, b: Event) => new Date(a.start).getTime() - new Date(b.start).getTime())[0]}
 							{#if nextEvent}
 								<p class="text-sm text-gray-300">{nextEvent.name}</p>
 							{:else}
 								<p class="text-sm text-gray-400">No upcoming events</p>
 							{/if}
-						{:catch error}
+						{:catch}
 							<p class="text-sm text-red-400">Failed to load</p>
 						{/await}
 					</div>
@@ -139,9 +154,9 @@
 						</GlassPanel>
 					</div>
 				{:then teamsData}
-					{@const v5Teams = teamsData?.teams?.filter((team: any) => team.type === 'V5') || []}
+					{@const v5Teams = teamsData?.teams?.filter((team: Team) => team.type === 'V5') || []}
 					{#if v5Teams.length > 0}
-						{#each v5Teams as team}
+						{#each v5Teams as team (team.id)}
 						<GlassPanel class="p-6">
 							<Card class="border-none bg-transparent shadow-none">
 								<CardHeader>
@@ -185,8 +200,8 @@
 										</div>
 										{#if team.members && team.members.length > 0}
 											<div class="grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
-												{#each team.members as member}
-													<div class="flex items-center justify-between rounded bg-white/5 px-3 py-2">
+												{#each team.members as member (member.name)}
+												<div class="flex items-center justify-between rounded bg-white/5 px-3 py-2">
 														<div>
 															<div class="font-medium text-white">{member.name}</div>
 														</div>
@@ -209,8 +224,8 @@
 										</div>
 										<div class="grid grid-cols-1 gap-2">
 											{#if team.achievements && team.achievements.length > 0}
-												{#each team.achievements as achievement}
-													<div class="flex items-center space-x-2 text-sm">
+												{#each team.achievements as achievement (achievement)}
+												<div class="flex items-center space-x-2 text-sm">
 														<div class="h-2 w-2 flex-shrink-0 rounded-full bg-yellow-400"></div>
 														<span class="text-gray-300">{achievement}</span>
 													</div>
@@ -234,7 +249,7 @@
 							</GlassPanel>
 						</div>
 					{/if}
-				{:catch error}
+				{:catch}
 					<div class="col-span-full">
 						<ErrorState 
 							message="Failed to load team information" 
@@ -259,9 +274,9 @@
 						</GlassPanel>
 					</div>
 				{:then teamsData}
-					{@const iqTeams = teamsData?.teams?.filter((team: any) => team.type === 'IQ') || []}
+					{@const iqTeams = teamsData?.teams?.filter((team: Team) => team.type === 'IQ') || []}
 					{#if iqTeams.length > 0}
-						{#each iqTeams as team}
+						{#each iqTeams as team (team.id)}
 							<GlassPanel class="p-6">
 								<Card class="border-none bg-transparent shadow-none">
 									<CardHeader>
@@ -305,7 +320,7 @@
 											</div>
 											{#if team.members && team.members.length > 0}
 												<div class="grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
-													{#each team.members as member}
+													{#each team.members as member (member.name)}
 														<div class="flex items-center justify-between rounded bg-white/5 px-3 py-2">
 															<div>
 																<div class="font-medium text-white">{member.name}</div>
@@ -329,7 +344,7 @@
 											</div>
 											<div class="grid grid-cols-1 gap-2">
 												{#if team.achievements && team.achievements.length > 0}
-													{#each team.achievements as achievement}
+													{#each team.achievements as achievement (achievement)}
 														<div class="flex items-center space-x-2 text-sm">
 															<div class="h-2 w-2 flex-shrink-0 rounded-full bg-yellow-400"></div>
 															<span class="text-gray-300">{achievement}</span>
@@ -354,7 +369,8 @@
 							</GlassPanel>
 						</div>
 					{/if}
-				{:catch error}
+				
+				{:catch}
 					<div class="col-span-full">
 						<ErrorState 
 							message="Failed to load IQ team information" 
