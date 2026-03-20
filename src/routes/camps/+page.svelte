@@ -6,7 +6,7 @@
 
 	const camps = [
 		{
-		slug: "vex-iq",
+		slug: "vex-iq robotics bootcamp",
 		id: "vex-iq-preseason-2026",
 		title: "VEX IQ Pre-Season Robotics Bootcamp",
 		subtitle:"A Three-Week Foundational Competition Intensive Bootcamp for ",
@@ -23,7 +23,7 @@
         ]
     },
 		{
-		slug: "vex-v5",
+		slug: "vex-v5 bootcamp",
         id: "vex-v5-preseason-2026",
         title: "VEX V5 Bootcamp",
         subtitle: "A Three-Week High-Performance Competition Intensive Bootcamp for",
@@ -65,7 +65,7 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 			{#each camps as camp (camp.slug)}
 				<div>
-					<GlassPanel class="h-full p-8 flex flex-col hover:scale-[1.02] transition-all duration-300">
+					<GlassPanel class="h-full p-8 flex flex-col">
 						<div class="flex justify-between items-start mb-6">
 							
 						</div>

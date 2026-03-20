@@ -45,6 +45,9 @@
 							<a href="/teams" class="hover:text-accent-yellow transition-colors">Our Teams</a>
 						</li>
 						<li>
+							<a href="/camps" class="hover:text-accent-yellow transition-colors">Camps</a>
+						</li>
+						<li>
 							<a href="/staff" class="hover:text-accent-yellow transition-colors">Leadership</a>
 						</li>
 					</ul>
