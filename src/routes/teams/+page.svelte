@@ -430,7 +430,7 @@
 					<Button
 						size="lg"
 						class="border-0 bg-yellow-500 font-semibold text-blue-900 hover:bg-yellow-400"
-						href="mailto:contact@steamojibelredrobotics.org"
+						href="/contact"
 					>
 						<Users class="mr-2 h-5 w-5" />
 						Join Our Team

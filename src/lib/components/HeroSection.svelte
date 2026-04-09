@@ -38,10 +38,13 @@
 				<span class="text-sm font-medium text-yellow-400">VEX V5 Championship Teams</span>
 			</div>
 			
-			<h1 class="font-display text-5xl sm:text-6xl lg:text-8xl xl:text-9xl mb-8 leading-none tracking-tight">
-				<span class="block text-white">Steamoji</span>
-				<span class="block text-yellow-400">Robotics</span>
-			</h1>
+			<h1 class="font-display mb-8 leading-none tracking-tight">
+                    <span class="block text-white text-6xl sm:text-7xl lg:text-[9rem] xl:text-[9rem]">Steamoji</span>
+    
+                    <span class="block  text-red-400 text-5xl sm:text-6xl lg:text-[7.5rem] xl:text-[8.2rem]">
+                         Belredplus
+                    </span>
+           </h1>
 			
 			<p class="text-xl sm:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
 				Building the next generation of engineers through

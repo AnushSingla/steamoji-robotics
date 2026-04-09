@@ -9,10 +9,12 @@
 		slug: "vex-iq robotics bootcamp",
 		id: "vex-iq-preseason-2026",
 		title: "VEX IQ Pre-Season Robotics Bootcamp",
-		subtitle:"A Three-Week Foundational Competition Intensive Bootcamp for ",
+		desc: "This summer, we are launching a structured Competitive Robotics Camp Series designed to prepare students for team tryouts and the upcoming season. These camps are immersive, hands-on, and skill-focused — built specifically to ensure students entering our competition teams are confident and competition-ready.",
+		subtitle: "A Three-Week Foundational Competition Intensive Bootcamp for ",
 		price: "$649/week", 
 		duration: "Mon-Fri, 9:00am - 3:00pm",
-		 bundlePrice: "$1,849",
+		bundlePrice: " $1,849 (Save $98)",
+        stripe : "https://buy.stripe.com/dRm5kD0kP1Sk6im4WT0Jq02",
 		tags: ["Competitive", "Python", "Engineering"],
 		description: [" Building Competitive Thinkers." , " Training Future Engineers." ," Establishing Elite Habits Early."],
        
@@ -22,14 +24,16 @@
             "Python Programming & Autonomous Strategy"
         ]
     },
-		{
-		slug: "vex-v5 bootcamp",
-        id: "vex-v5-preseason-2026",
-        title: "VEX V5 Bootcamp",
+{
+	slug: "vex-v5 bootcamp",
+	id: "vex-v5-preseason-2026",
+	title: "VEX V5 Bootcamp",
+	desc: "Competitive robotics excellence is not built during the season. It is built before the season begins. This bootcamp is not a general robotics camp. It is a disciplined training program that mirrors the workflow of elite VRC teams.",
         subtitle: "A Three-Week High-Performance Competition Intensive Bootcamp for",
         price: "$649/week",
-        bundlePrice: "$1,849",
+        bundlePrice: " $1,849 (Save $98)",
         bundleSavings: "Save $98",
+		stripe: "https://buy.stripe.com/3cI7sL7Nh7cEfSW3SP0Jq00",
         duration: "Mon-Fri, 9:00am - 3:00pm",
         tags: ["Advanced", "C++", "VRC", "CAD"],
         description: ["Designed for high-level competition performance",
@@ -71,14 +75,17 @@
 						</div>
 						
 						<h3 class="text-2xl font-display text-white mb-4">{camp.title}</h3>
-						
 						<p class="text-white/70 mb-8 flex-grow leading-relaxed">
+							{camp.desc}
+						</p>
+						
+						<p class="text-white/120 mb-8 flex-grow leading-relaxed">
 							{camp.subtitle}
 						</p>
 						<ul class="space-y-4">
                            {#each camp.description as bullet}
                          <li class="flex items-start gap-3">
-                           <span class="flex-shrink-0 w-2 h-2 mt-2 rounded-full bg-yellow-400"></span>
+                           <span class="flex-shrink-0 w-2 h-2 mt-2 rounded-full bg-red-600"></span>
                            
                            <span class="text-gray-300 text-lg leading-relaxed">
                            <strong class="text-white">{bullet.split('.')[0]}</strong>
@@ -90,7 +97,7 @@
                         <br>
 						<div class="space-y-4 mb-8">
 							<div class="flex items-center text-white/80 gap-3">
-								<Calendar class="w-5 h-5 text-yellow-400" />
+								<Calendar class="w-5 h-5 text-[var(--color-accent-red)]" />
 								<span>{camp.duration}</span>
 							</div>
 							<div class="flex items-center text-white/80 gap-3">
@@ -126,12 +133,12 @@
                          href="/camps/{camp.slug}" 
                          variant="outline"
                         class="flex-1 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold py-4"
-                         >Know More
+                         >Learn More
                       </Button>
                       <br>
 
 						<Button 
-							href="/contact"
+							href={camp.stripe}
 							class="w-full bg-yellow-400 text-black hover:bg-yellow-500 font-bold py-6 text-lg"
 						>
 							Enroll Now

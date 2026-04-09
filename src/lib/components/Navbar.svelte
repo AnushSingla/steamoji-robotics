@@ -53,7 +53,7 @@
 					class="font-medium bg-accent-yellow text-primary-blue hover:bg-accent-yellow/90 border-0"
                     href="/contact"
 				>
-					Join Us
+					Contact Us
 				</Button>
 			</div>
 			
@@ -95,7 +95,7 @@
 							class="w-full font-medium bg-accent-yellow text-primary-blue hover:bg-accent-yellow/90 border-0"
 							href="/contact"
 						>
-							Join Us
+							Contact Us
 						</Button>
 					</div>
 				</div>
