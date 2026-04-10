@@ -39,11 +39,12 @@
 			</div>
 			
 			<h1 class="font-display mb-8 leading-none tracking-tight">
-                    <span class="block text-white text-6xl sm:text-7xl lg:text-[9rem] xl:text-[9rem]">Steamoji</span>
+                    <span class="block text-white text-6xl sm:text-7xl lg:text-[9rem] xl:text-[7rem]">Steamoji</span>
     
-                    <span class="block  text-red-400 text-5xl sm:text-6xl lg:text-[7.5rem] xl:text-[8.2rem]">
+                    <span class="block  text-red-400 text-5xl sm:text-6xl lg:text-[7.5rem] xl:text-[7rem]">
                          Belredplus
                     </span>
+					<span class="block text-yellow-400 text-6xl sm:text-7xl lg:text-[9rem] xl:text-[7rem]">Robotics</span>
            </h1>
 			
 			<p class="text-xl sm:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
