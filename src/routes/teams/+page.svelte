@@ -3,8 +3,8 @@
 	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
-	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
-	import { onMount } from 'svelte';
+	
+	
 	import ErrorState from '$lib/components/ErrorState.svelte';
 	import {
 		Trophy,
@@ -18,6 +18,7 @@
 		Wrench
 	} from '@lucide/svelte';
 	import { invalidate } from '$app/navigation';
+	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
 	interface Team {
 		id: string;
@@ -44,52 +45,12 @@
 	}
 
 	let { data }: Props = $props();
-	let showForm = $state(false);
+	
 
 	const retryLoadTeams = () => {
 		invalidate('/api/teams');
 	};
 	
-	function handleJoinClick() {
-    showForm = true;
-	const section = document.getElementById('join-section');
-    if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-    }
-	requestAnimationFrame(() => {
-        const container = document.getElementById('jotform-embed-container');
-        if (container && !container.querySelector('script')) {
-            const script = document.createElement('script');
-            script.src = "https://form.jotform.com/jsform/251588200771154";
-            script.type = "text/javascript";
-            // Do NOT use async here, let it block and load immediately
-            script.async = false; 
-            container.appendChild(script);
-        }
-    });
-    
-    // We use a slight delay to let Svelte 5 finish the DOM transition
-    setTimeout(() => {
-        const container = document.getElementById('jotform-embed-container');
-        
-        if (container) {
-            // Check if script already exists to avoid duplicates
-            if (container.querySelector('script')) return;
-
-            const script = document.createElement('script');
-            script.src = "https://form.jotform.com/jsform/251588200771154";
-            script.type = "text/javascript";
-            script.async = true;
-            
-            // This is the magic part: JotForm script looks for its own script tag 
-            // to know where to place the iframe.
-            container.appendChild(script);
-        } else {
-            console.error("JotForm container not found in DOM");
-        }
-    }, 100); // Increased to 100ms for safety
-}
-
 	
 </script>
 
@@ -134,12 +95,12 @@
 					{/await}
 					
 				</div>
-				<br/>
+				<br>
 				<div class="text-center">
                 <Button
                     size="lg"
                     class="border-0 bg-yellow-500 font-semibold text-blue-900 hover:bg-yellow-400 px-10 py-6"
-                    onclick={handleJoinClick} 
+                    href="/jointeam"
                 >
                     <Users class="mr-2 h-5 w-5" />
                     Join Our Team
@@ -435,20 +396,18 @@
 				{/await}
 			</div>
 		</div>		<!-- Program Information -->
-		<div class="mt-16" id="join-section">
+		<div class="mt-16">
     <GlassPanel class="p-8 md:p-12 transition-all duration-500">
         <div class="mb-8 text-center">
-            <h2 class="font-display mb-4 text-3xl text-yellow-400">
-                {showForm ? 'Season Registration' : 'Join Our Program'}
+            <h2 class="font-display mb-4 text-3xl text-white">
+                {'Join Our Program'}
             </h2>
             <p class="mx-auto max-w-3xl text-gray-300">
-                {showForm 
-                    ? 'Please fill out the official interest form below to secure your spot for the 2026-2027 season.' 
-                    : 'Interested in becoming part of our competitive VEX robotics program? We welcome motivated students who are passionate about engineering, programming, and teamwork.'}
+                {'Interested in becoming part of our competitive VEX robotics program? We welcome motivated students who are passionate about engineering, programming, and teamwork.'}
             </p>
         </div>
 
-        {#if !showForm}
+        
             <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
                 <div class="text-center">
                     <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-yellow-500/20">
@@ -477,38 +436,17 @@
                 <Button
                     size="lg"
                     class="border-0 bg-yellow-500 font-semibold text-blue-900 hover:bg-yellow-400 px-10 py-6"
-                    onclick={handleJoinClick} 
+                    href="/jointeam"
                 >
                     <Users class="mr-2 h-5 w-5" />
                     Join Our Team
                     <ArrowRight class="ml-2 h-5 w-5" />
                 </Button>
             </div>
-        {:else}
-        <div class="animate-in fade-in zoom-in duration-500 rounded-2xl bg-slate-950/50 border border-white/10 overflow-hidden shadow-2xl">
-        <div id="jotform-embed-container" class="w-full transition-all">
-            </div>
-    </div>
-{/if}
+        
+           
+       
     </GlassPanel>
 </div>
 	</div>
 </section>
-<style>
-    #jotform-embed-container :global(iframe) {
-        width: 100% !important;
-        min-width: 100% !important;
-        border: none !important;
-        /* CRITICAL: This removes the white box background */
-        background: transparent !important;
-        color-scheme: dark; /* Tells the browser to use dark scrollbars */
-    }
-
-    /* Make the outer container match your site's glass style */
-    .form-glass-container {
-        background: rgba(15, 23, 42, 0.4); /* Dark semi-transparent slate */
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 1.5rem;
-    }
-</style>
